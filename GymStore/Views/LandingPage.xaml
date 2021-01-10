@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:vm="clr-namespace:GymStore.ViewModel"
+             mc:Ignorable="d" NavigationPage.HasNavigationBar="False"
+             x:Class="GymStore.Views.LandingPage">
+    
+
+    <ContentPage.BindingContext>
+        <vm:LandingViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid Padding="30" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Padding="0,10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            
+            <StackLayout Spacing="20" HorizontalOptions="Start" VerticalOptions="Center">
+                <Image Source="searchh.jpg" Aspect="AspectFit" WidthRequest="25" HeightRequest="25"/>
+                <Image Source="userr.png" Aspect="AspectFit" WidthRequest="25" HeightRequest="25"/>
+                <Image Source="cartt.jpg" Aspect="AspectFit" WidthRequest="25" HeightRequest="25"/>
+            </StackLayout>
+            
+            <StackLayout Spacing="0" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="GYM" TextColor="Black" FontFamily="ThemeFont" FontSize="50" HorizontalOptions="Center" FontAttributes="Bold"/>
+                <Label Text="STORE" Margin="0,-5,0,0" TextColor="Black" Opacity="0.5" FontFamily="LightFont" FontSize="22" HorizontalOptions="Center"/>
+            </StackLayout>
+        </Grid>
+        
+        
+        <CollectionView x:Name="supplementList" Margin="0,40,0,0" Grid.Row="1" ItemsSource="{Binding Supplements}" SelectionMode="Single" 
+                        SelectedItem="{Binding SelectedSupplement}" VerticalScrollBarVisibility="Never" 
+                        SelectionChangedCommand="{Binding SelectionCommand}">
+            
+            <CollectionView.ItemsLayout>
+                
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20" HorizontalItemSpacing="20" Span="2"/>
+            </CollectionView.ItemsLayout>
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" BackgroundColor="White" WidthRequest="145" HeightRequest="160">
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Image Aspect="AspectFill" Source="{Binding Image}" Margin="10" WidthRequest="115" HeightRequest="115" 
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Label Grid.Row="1" Text="{Binding Name}" TextColor="Black" FontFamily="ThemeFont" FontSize="11" FontAttributes="Bold"
+                        VerticalOptions="End" HorizontalOptions="Start"/>
+                        <Label Grid.Row="1" Text="{Binding Price, StringFormat='{0} RON'}" TextColor="Black" FontSize="12" FontFamily="ThemeFont" Opacity="0.8"
+                        VerticalOptions="End" HorizontalOptions="End"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.Footer>
+                <Grid HeightRequest="0"/>
+            </CollectionView.Footer>
+        </CollectionView>
+    </Grid>
+</ContentPage>
